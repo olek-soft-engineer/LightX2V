@@ -27,7 +27,7 @@ export PYTHONPATH=${lightx2v_path}:$PYTHONPATH
 
 export ENABLE_PROFILING_DEBUG=true
 
-torchrun --nproc_per_node=4 ${lightx2v_path}/lightx2v/__main__.py \
+torchrun --nproc_per_node=4 ${lightx2v_path}/lightx2v/infer.py \
 --model_cls hunyuan \
 --task t2v \
 --model_path $model_path \
@@ -35,7 +35,7 @@ torchrun --nproc_per_node=4 ${lightx2v_path}/lightx2v/__main__.py \
 --prompt "A cat walks on the grass, realistic style." \
 --save_video_path ${lightx2v_path}/save_results/output_lightx2v_hunyuan_t2v_dist_ulysses.mp4
 
-torchrun --nproc_per_node=4 ${lightx2v_path}/lightx2v/__main__.py \
+torchrun --nproc_per_node=4 ${lightx2v_path}/lightx2v/infer.py \
 --model_cls hunyuan \
 --task t2v \
 --model_path $model_path \
