@@ -12,6 +12,7 @@
     "enable_cfg": true,
     "cpu_offload": true,
     "offload_granularity": "phase",
+    "t5_cpu_offload": true,
     "t5_offload_granularity": "block",
     "dit_quantized_ckpt": "/path/to/dit_int8",
     "mm_config": {
