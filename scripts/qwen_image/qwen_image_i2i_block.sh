@@ -34,7 +34,7 @@ python -m lightx2v.infer \
     --model_cls qwen_image \
     --task i2i \
     --model_path $model_path \
-    --config_json ${lightx2v_path}/configs/qwen_image/qwen_image_i2i.json \
+    --config_json ${lightx2v_path}/configs/offload/block/qwen_image_i2i_block.json \
     --prompt "turn the style of the photo to vintage comic book" \
     --negative_prompt " " \
     --image_path pie.png \
