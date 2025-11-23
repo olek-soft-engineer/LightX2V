@@ -20,11 +20,65 @@
 
 ## :fire: Latest News
 
-- **November 21, 2025:** 🚀 We support the [HunyuanVideo-1.5](https://huggingface.co/tencent/HunyuanVideo-1.5) video generation model since Day 0. With the same number of GPUs, LightX2V can achieve a speed improvement of over 2 times and supports deployment on GPUs with lower memory (such as the 24GB RTX 4090). It also supports CFG/Ulysses parallelism, efficient offloading, TeaCache/MagCache technologies, and more. We will soon update our models on our [HuggingFace page](https://huggingface.co/lightx2v), including quantization, step distillation, VAE distillation, and other related models. Refer to [this](https://github.com/ModelTC/LightX2V/tree/main/scripts/hunyuan_video_15) for usage tutorials.
+- **November 21, 2025:** 🚀 We support the [HunyuanVideo-1.5](https://huggingface.co/tencent/HunyuanVideo-1.5) video generation model since Day 0. With the same number of GPUs, LightX2V can achieve a speed improvement of over 2 times and supports deployment on GPUs with lower memory (such as the 24GB RTX 4090). It also supports CFG/Ulysses parallelism, efficient offloading, TeaCache/MagCache technologies, and more. It also supports deployment on domestic chips such as Muxi and Cambricon. Quantized models and lightweight VAE models are now available: [Hy1.5-Quantized-Models](https://huggingface.co/lightx2v/Hy1.5-Quantized-Models) for quantized inference, and [LightTAE for HunyuanVideo-1.5](https://huggingface.co/lightx2v/Autoencoders/blob/main/lighttaehy1_5.safetensors) for fast VAE decoding. We will soon update more models on our [HuggingFace page](https://huggingface.co/lightx2v), including step distillation, VAE distillation, and other related models. Refer to [this](https://github.com/ModelTC/LightX2V/tree/main/scripts/hunyuan_video_15) for usage tutorials, or check out the [examples directory](https://github.com/ModelTC/LightX2V/tree/main/examples) for code examples.
 
 ## 💡 Quick Start
 
 For comprehensive usage instructions, please refer to our documentation: **[English Docs](https://lightx2v-en.readthedocs.io/en/latest/) | [中文文档](https://lightx2v-zhcn.readthedocs.io/zh-cn/latest/)**
+
+### Installation from Git
+```bash
+pip install -v git+https://github.com/ModelTC/LightX2V.git
+```
+
+### Building from Source
+```bash
+git clone https://github.com/ModelTC/LightX2V.git
+cd LightX2V
+uv pip install -v . # pip install -v .
+```
+
+### (Optional) Install Attention/Quantize Operators
+For attention operators installation, please refer to our documentation: **[English Docs](https://lightx2v-en.readthedocs.io/en/latest/getting_started/quickstart.html#step-4-install-attention-operators) | [中文文档](https://lightx2v-zhcn.readthedocs.io/zh-cn/latest/getting_started/quickstart.html#id9)**
+
+### Quick Start
+```python
+# examples/hunyuan_video/hunyuan_t2v.py
+from lightx2v import LightX2VPipeline
+
+pipe = LightX2VPipeline(
+    model_path="/path/to/ckpts/hunyuanvideo-1.5/",
+    model_cls="hunyuan_video_1.5",
+    transformer_model_name="720p_t2v",
+    task="t2v",
+)
+
+pipe.create_generator(
+    attn_mode="sage_attn2",
+    infer_steps=50,
+    num_frames=121,
+    guidance_scale=6.0,
+    sample_shift=9.0,
+    aspect_ratio="16:9",
+    fps=24,
+)
+
+seed = 123
+prompt = "Two anthropomorphic cats in comfy boxing gear and bright gloves fight intensely on a spotlighted stage."
+negative_prompt = ""
+save_result_path="/path/to/save_results/output.mp4"
+
+pipe.generate(
+    seed=seed,
+    prompt=prompt,
+    negative_prompt=negative_prompt,
+    save_result_path=save_result_path,
+)
+
+```
+
+> 💡 **More Examples**: For more usage examples including quantization, offloading, caching, and other advanced configurations, please refer to the [examples directory](https://github.com/ModelTC/LightX2V/tree/main/examples).
+
 
 
 ## 🤖 Supported Model Ecosystem
@@ -37,7 +91,6 @@ For comprehensive usage instructions, please refer to our documentation: **[Engl
 - ✅ [Qwen-Image-Edit-2509](https://huggingface.co/Qwen/Qwen-Image-Edit-2509)
 
 ### Quantized and Distilled Models/LoRAs (**🚀 Recommended: 4-step inference**)
-- ✅ [Hy1.5-Quantized-Models](https://huggingface.co/lightx2v/Hy1.5-Quantized-Models)
 - ✅ [Wan2.1-Distill-Models](https://huggingface.co/lightx2v/Wan2.1-Distill-Models)
 - ✅ [Wan2.2-Distill-Models](https://huggingface.co/lightx2v/Wan2.2-Distill-Models)
 - ✅ [Wan2.1-Distill-Loras](https://huggingface.co/lightx2v/Wan2.1-Distill-Loras)
@@ -45,7 +98,6 @@ For comprehensive usage instructions, please refer to our documentation: **[Engl
 
 ### Lightweight Autoencoder Models (**🚀 Recommended: fast inference & low memory usage**)
 - ✅ [Autoencoders](https://huggingface.co/lightx2v/Autoencoders)
-
 🔔 Follow our [HuggingFace page](https://huggingface.co/lightx2v) for the latest model releases from our team.
 
 ### Autoregressive Models
