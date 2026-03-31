@@ -1,5 +1,5 @@
 #!/bin/bash
-lightx2v_path=
+lightx2v_path=/mnt/miaohua/wangshankun/LightX2V
 model_path="/data/temp/black-forest-labs/FLUX.2-klein-9B"
 export CUDA_VISIBLE_DEVICES=0
 
