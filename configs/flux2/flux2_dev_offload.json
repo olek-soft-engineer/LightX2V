@@ -11,5 +11,5 @@
     "rope_type": "flashinfer",
     "text_encoder_out_layers": [10, 20, 30],
     "cpu_offload": true,
-    "offload_granularity": "block"
+    "offload_granularity": "model"
 }
