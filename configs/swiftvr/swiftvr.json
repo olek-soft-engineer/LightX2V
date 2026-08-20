@@ -1,8 +1,11 @@
 {
-  "attention_backend": "sdpa",
+  "attention_backend": "torch_sdpa",
+  "rope_type": "torch_real_rope",
   "clip_len": 24,
   "dit_overlap": 0,
+  "reae_frame_batch_size": 2,
   "fps": null,
   "quality": 60,
+  "ffmpeg_preset": "ultrafast",
   "queue_size": 3
 }

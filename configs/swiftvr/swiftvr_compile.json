@@ -1,0 +1,13 @@
+{
+  "attention_backend": "flash_attn3",
+  "cross_attention_backend": "flash_attn3",
+  "rope_type": "torch_real_rope",
+  "clip_len": 24,
+  "dit_overlap": 0,
+  "reae_frame_batch_size": 2,
+  "fps": null,
+  "quality": 60,
+  "ffmpeg_preset": "ultrafast",
+  "queue_size": 3,
+  "use_compile": true
+}
